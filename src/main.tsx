@@ -1,5 +1,14 @@
 import { createRoot } from 'react-dom/client';
-import { App } from './App.tsx';
+import { Root } from './root.tsx';
 import './index.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-createRoot(document.getElementById('root')!).render(<App />);
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Root />,
+  },
+]);
+createRoot(document.getElementById('root')!).render(
+  <RouterProvider router={router}></RouterProvider>
+);
