@@ -5,11 +5,12 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
+font-size: 18px;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --pink: color(display-p3 1 0.64 0.703);
 }
 * {
   margin: 0;
@@ -19,4 +20,55 @@
 
 ul {
   list-style: none;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+form input, form  button {
+  font: inherit;
+  flex:  0 0 auto;
+  width: 320px;
+  background: transparent;
+  border: 2px solid black;
+  line-height: 1.8;
+  margin-bottom: 16px;
+  color: inherit;
+  
+}
+form input[type='text'], form input[type='email'] {
+  font-size: inherit;
+  border-width: 0;
+  border-bottom-width: 2px;
+
+}
+form input[type='checkbox'] {
+    accent-color: var(--pink);
+}
+form button{
+  border-radius: 7px;
+  background: transparent;
+  color: black;
+  font-weight: 500;
+}
+fieldset {
+  all: unset;
+}
+
+form fieldset {
+  display: flex;
+  flex-direction: column;
+}
+a{
+  text-decoration: none;
+  color: inherit;
+}
+a:hover {
+  text-decoration: underline;
+}
+a[href]:visited {
+  color: inherit;
+}
+.p3-pink-color {
+  background-color: var(--pink);
 }

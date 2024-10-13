@@ -1,9 +1,12 @@
+import { ReactNode } from "react";
+import { Link, useFetcher } from "react-router-dom";
+
 export const Root = () => {
   return (
     <>
       <NavBar />
-      <TemplateGalley/>
-      <RecentForms/>
+      <TemplateGallery />
+      <RecentForms />
     </>
   );
 };
@@ -11,47 +14,160 @@ export const Root = () => {
 const NavBar = () => {
   return (
     <>
-      <nav className="pt-20  bg-slate-300">
-        <ul className="flex justify-between ">
-          <li className="text-xl text-purple-400"><a href="/">Not Google Forms</a></li>
-          <li className="">Account</li>
-        </ul>
+      <nav className="p3-pink-color flex h-[280px] px-16 pt-20 text-white">
+        <div className="ml-auto mr-auto flex w-full max-w-[1280px] flex-col justify-end">
+          <div className="pb-[40px]">
+            <Link
+              to="/"
+              className="gap-10 text-4xl text-purple-400 lg:text-7xl"
+            >
+              not google forms
+            </Link>
+          </div>
+        </div>
       </nav>
+      <ul className="ml-auto mr-auto flex w-full max-w-[1280px] gap-16 px-16 pb-20 pt-20">
+        <li className="ml-10px">Search</li>
+        <li>Account</li>
+      </ul>
     </>
   );
 };
 
-const TemplateGalley = ()=> {
+const TemplateGallery = () => {
   return (
     <>
-    <section className="bg-gray-200 pt-10">
-      <header className="pb-10">Start a new form</header>
-      <ul className="flex gap-20">
-        <li className="bg-green-200 min-h-[150px] min-w-[150px]">
-          Blank form
-        </li>
-        <li className="bg-green-300 min-h-[150px] min-w-[150px]">
-          Contact Information
-        </li>
-        <li className="bg-green-400 min-h-[150px] min-w-[150px]">
-          RSVP
-        </li>
-        <li className="bg-green-500 min-h-[150px] min-w-[150px]">
-          Party Invite
-        </li>
-        <li className="bg-green-600 min-h-[150px] min-w-[150px]">
-          T-Shirt Sign up
-        </li>
-      </ul>
-    </section>
-    </>
-  )
-}
+      <section className="ml-auto mr-auto max-w-[1280px] px-16 pt-[20px]">
+        <header className="pb-10">Start a new form</header>
+        <ul className="flex gap-20 overflow-x-auto whitespace-nowrap">
+          <li>
+            <TemplateBlankForm />
+          </li>
+          <li>
+            <TemplateContactInfo />
+          </li>
 
-const RecentForms = ()=> {
+          <li>
+            <TemplatePartyInvite />
+          </li>
+        </ul>
+      </section>
+    </>
+  );
+};
+
+const RecentForms = () => {
   return (
     <>
-    <div>Recent</div>
+      <section className="ml-auto mr-auto max-w-[1280px] px-16">
+        <div className="pb-20">Recent forms</div>
+      </section>
     </>
-  )
-}
+  );
+};
+
+const TemplateBlankForm = () => {
+  return (
+    <>
+      <Link to="/create">
+        <TemplateItem text="Blank form →">
+          <div className="h-[200px] w-[200px] bg-slate-300"></div>
+        </TemplateItem>
+      </Link>
+    </>
+  );
+};
+const TemplateContactInfo = () => {
+  return (
+    <>
+      <Link to="/contact-template">
+        <TemplateItem text="Contact information →">
+          <div className="h-[200px] w-[200px] bg-orange-300"></div>
+        </TemplateItem>
+      </Link>
+    </>
+  );
+};
+
+const TemplatePartyInvite = () => {
+  return (
+    <>
+      <Link to="/party-template">
+        <TemplateItem text="Party invite →">
+          <div className="h-[200px] w-[200px] bg-blue-300"></div>
+        </TemplateItem>
+      </Link>
+    </>
+  );
+};
+
+const TemplateItem = (props: { text: string; children?: ReactNode }) => {
+  return (
+    <>
+      <main className="min-h-[200px] min-w-[200px] pb-20">
+        {props.children}
+        <p>{props.text}</p>
+      </main>
+    </>
+  );
+};
+
+export const NewFormPage = () => {
+  return (
+    <>
+      <NavBar />
+      <CreateNewBlankForm />
+    </>
+  );
+};
+
+const CreateNewBlankForm = () => {
+  const fetcher = useFetcher();
+  return (
+    <section className="ml-auto mr-auto w-full max-w-[1280px] px-16 pb-20 pt-[40px]">
+      <header>
+        <p className="pb-10">Create a new form</p>
+        <fetcher.Form method="post" action="'/newform">
+          <fieldset>
+            <input type="text" name="title" placeholder="Title" />
+            <input type="text" name="description" placeholder="Description" />
+          </fieldset>
+
+          <fieldset>
+            <input type="text" name="question" placeholder="Question" />
+            <div className="flex items-center gap-10 pb-10">
+              <input
+                type="checkbox"
+                name="option1"
+                id="option1"
+                className="mb-[unset] w-[unset] gap-10"
+              />
+              <label htmlFor="option1">Option 1</label>
+            </div>
+          </fieldset>
+
+          <button type="submit">Create</button>
+        </fetcher.Form>
+      </header>
+      <main></main>
+    </section>
+  );
+};
+
+export const ContactTemplatePage = () => {
+  return (
+    <>
+      <NavBar />
+      <div>contact template</div>
+    </>
+  );
+};
+
+export const PartyInviteTemplatePage = () => {
+  return (
+    <>
+      <NavBar />
+      <div>party invite template</div>
+    </>
+  );
+};
