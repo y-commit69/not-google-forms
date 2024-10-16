@@ -3,7 +3,9 @@ import { Link, useFetcher, useLoaderData } from "react-router-dom";
 import type { LoaderFunction } from "react-router-dom";
 
 type Users = {
+  id: number;
   name: string;
+  email: string;
 };
 const getUsers = async (): Promise<{ users: Users[] }> => {
   const res = await fetch("http://localhost:3000/api");
@@ -20,13 +22,19 @@ export const rootLoader: LoaderFunction = async () => {
 };
 
 export const Root = () => {
-  const usersData = useLoaderData() as { users: Users[] };
-  console.log(usersData.users);
+  const usersData = useLoaderData() as Users[];
+  console.log(usersData);
+  console.log(usersData);
   return (
     <>
-      {usersData.users.map((user, index) => (
-        <div key={index}>{user.name}</div>
-      ))}
+      <ul>
+        {usersData.map((user) => (
+          <li key={user.id}>
+            <p>{user.name}</p>
+            <p>{user.email}</p>
+          </li>
+        ))}
+      </ul>
       <NavBar />
       <TemplateGallery />
       <RecentForms />
