@@ -4,6 +4,7 @@ import {
   NewFormPage,
   PartyInviteTemplatePage,
   Root,
+  rootLoader,
 } from "./root.tsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -12,6 +13,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    loader: rootLoader,
   },
   {
     path: "/create",

@@ -1,9 +1,32 @@
 import { ReactNode } from "react";
-import { Link, useFetcher } from "react-router-dom";
+import { Link, useFetcher, useLoaderData } from "react-router-dom";
+import type { LoaderFunction } from "react-router-dom";
+
+type Users = {
+  name: string;
+};
+const getUsers = async (): Promise<{ users: Users[] }> => {
+  const res = await fetch("http://localhost:3000/api");
+  if (!res.ok) {
+    throw new Error("Failed to fetch users");
+  }
+  const users = await res.json();
+  return users;
+};
+
+export const rootLoader: LoaderFunction = async () => {
+  const users = await getUsers();
+  return users;
+};
 
 export const Root = () => {
+  const usersData = useLoaderData() as { users: Users[] };
+  console.log(usersData.users);
   return (
     <>
+      {usersData.users.map((user, index) => (
+        <div key={index}>{user.name}</div>
+      ))}
       <NavBar />
       <TemplateGallery />
       <RecentForms />
