@@ -13,32 +13,16 @@ app.use(
 );
 
 app.get("/api", async (req, res) => {
-  //   res.json({ users: [{ name: "shrek" }, { name: "fiona" }] });
-  const users = await prisma.user.findMany();
-  const posts = prisma.post.findMany();
-  res.json(users);
+  try {
+    const users = await prisma.user.findMany();
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Something went wrong" });
+  }
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
 });
-
-async function main() {
-  const usersWithPosts = await prisma.user.findMany({
-    include: {
-      posts: true,
-    },
-  });
-  console.dir(usersWithPosts, { depth: null });
-}
-
-main()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
