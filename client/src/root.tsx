@@ -8,7 +8,7 @@ type Users = {
   email: string;
 };
 const getUsers = async (): Promise<{ users: Users[] }> => {
-  const res = await fetch("http://localhost:3000/api");
+  const res = await fetch("https://not-google-forms.onrender.com/api");
   if (!res.ok) {
     throw new Error("Failed to fetch users");
   }
