@@ -1,4 +1,5 @@
 import express from "express";
+import type { Request, Response } from "express";
 import cors from "cors";
 import { PrismaClient } from "@prisma/client";
 
@@ -12,7 +13,7 @@ app.use(
   })
 );
 
-app.get("/api", async (req, res) => {
+app.get("/api", async (req: Request, res: Response) => {
   try {
     const users = await prisma.user.findMany();
     res.json(users);
