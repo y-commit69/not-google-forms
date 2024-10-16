@@ -18,4 +18,5 @@ dist
 *.sln
 *.sw?
 
+*.db
 .env
