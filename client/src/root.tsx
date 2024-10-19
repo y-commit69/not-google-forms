@@ -7,8 +7,10 @@ type Users = {
   name: string;
   email: string;
 };
+const API_URL =
+  import.meta.env.VITE_API_URL || "https://not-google-forms.onrender.com/api";
 const getUsers = async (): Promise<{ users: Users[] }> => {
-  const res = await fetch("https://not-google-forms.onrender.com/api");
+  const res = await fetch(API_URL);
   if (!res.ok) {
     throw new Error("Failed to fetch users");
   }

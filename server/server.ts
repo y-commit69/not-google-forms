@@ -9,7 +9,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://not-google-forms.pages.dev",
+    origin: ["http://localhost:5173", "https://not-google-forms.pages.dev"],
   })
 );
 
