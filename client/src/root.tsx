@@ -1,43 +1,10 @@
 import { ReactNode } from "react";
-import type { LoaderFunction } from "react-router-dom";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { CreateNewBlankForm } from "./routes/create-page";
-import { API_URL } from "./utils/utils";
-
-type Users = {
-  id: number;
-  name: string;
-  email: string;
-};
-
-const getUsers = async (): Promise<{ users: Users[] }> => {
-  const res = await fetch(API_URL);
-  if (!res.ok) {
-    throw new Error("failed to fetch users");
-  }
-  const users = await res.json();
-  console.log(users);
-  return users;
-};
-
-export const rootLoader: LoaderFunction = async () => {
-  const users = await getUsers();
-  return users;
-};
 
 export const Root = () => {
-  const usersData = useLoaderData() as Users[];
   return (
     <>
-      <ul>
-        {usersData.map((user) => (
-          <li key={user.id}>
-            <p>{user.name}</p>
-            <p>{user.email}</p>
-          </li>
-        ))}
-      </ul>
-
       <NavBar />
       <TemplateGallery />
       <RecentForms />
