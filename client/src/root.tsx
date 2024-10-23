@@ -62,12 +62,6 @@ export const NavBar = () => {
       </nav>
       <ul className="ml-auto mr-auto flex w-full max-w-[1280px] gap-16 px-16 pb-20 pt-20">
         <li className="ml-10px">Search</li>
-        <li>
-          <Link to={"/register"}>Register</Link>
-        </li>
-        <li>
-          <Link to={"/login"}>login</Link>
-        </li>
       </ul>
     </>
   );
