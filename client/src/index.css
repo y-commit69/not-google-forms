@@ -6,19 +6,35 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-font-size: 18px;
+  font-size: 18px;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --pink: rgb(201, 201, 201);
   --neon: color(display-p3 0.856 1 0.205)
+  --background-color: #eee;
+  --foreground-color: #111;
+}
+body {
+  background-color: var(--background-color);
+  color: var(--foreground-color);
+
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #111;
+    --foreground-color: #eee;
+    
+  }
 }
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 
 ul {
   list-style: none;
@@ -37,7 +53,7 @@ form input, form  button {
   flex:  0 0 auto;
   width: 320px;
   background: transparent;
-  border: 2px solid black;
+  border: 2px solid var(--foreground-color);
   line-height: 1.8;
   margin-bottom: 16px;
   color: inherit;
@@ -58,7 +74,7 @@ form input[type='file'] {
 form button{
   border-radius: 7px;
   background: transparent;
-  color: black;
+  color: var(--foreground-color);
   font-weight: 500;
 }
 fieldset {
@@ -74,7 +90,7 @@ form fieldset {
 
 select {
   /* appearance: none; */
-  border: 1px solid #ccc; 
+  border: 1px solid var(--background-color); 
   font: inherit;
   width: 320px;
 }
