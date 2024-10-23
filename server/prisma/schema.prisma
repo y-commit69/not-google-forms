@@ -25,21 +25,18 @@ model Template {
 }
 
 model Question {
-  id             String   @id @default(uuid())
-  templateId     String
-  template       Template @relation(fields: [templateId], references: [id])
-  type           String
-  text           String
-  order          Int
-  answers        Answer[]
-  option1        String?
-  option2        String?
-  option3        String?
-  option4        String?
-  option1Checked Boolean  @default(false)
-  option2Checked Boolean  @default(false)
-  option3Checked Boolean  @default(false)
-  option4Checked Boolean  @default(false)
+  id         String   @id @default(uuid())
+  templateId String
+  template   Template @relation(fields: [templateId], references: [id])
+  type       String
+  text       String
+  order      Int
+  answers    Answer[]
+  option1    String?
+  option2    String?
+
+  option1Checked Boolean @default(false)
+  option2Checked Boolean @default(false)
 }
 
 model Form {
