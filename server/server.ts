@@ -1,13 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import { Multer } from "@ts-stack/multer";
-
 import cors from "cors";
 import type { Application, Request, Response } from "express";
 import express from "express";
-import admin from "firebase-admin";
-import argon2 from "argon2";
-import { readFileSync } from "fs";
-import { resolve } from "path";
 
 import { HTTP_STATUS } from "./utils/utils.js";
 
@@ -17,14 +12,6 @@ const multer = new Multer({
     files: 1,
     fileSize: 2 * 1024 * 1024,
   },
-});
-
-const filePath = resolve(
-  "config/not--forms-firebase-adminsdk-8rg04-49aaea9062.json"
-);
-const serviceAccount = JSON.parse(readFileSync(filePath, "utf-8"));
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
 });
 
 const parseImage = multer.single("image");
