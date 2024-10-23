@@ -26,6 +26,8 @@ body {
   :root {
     --background-color: #111;
     --foreground-color: #eee;
+  --neon: color(display-p3 0.856 1 0.205)
+
     
   }
 }
