@@ -65,11 +65,12 @@ export const ErrorPage = () => {
             </Link>
           </>
         ) : (
-          <span>`error: ${error.status}`</span>
+          <>
+            <h2>Error: {error.status}</h2>
+            <p>{error.statusText}</p>
+            <p>{error.data}</p>
+          </>
         )}
-        {}
-
-        {error.data?.message && <p>{error.data.message}</p>}
       </div>
     );
   }
