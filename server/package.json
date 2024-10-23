@@ -3,7 +3,7 @@
   "type": "module",
   "main": "dist/server.js",
   "scripts": {
-    "build": "tsc --pretty && cp ./config/not--forms-firebase-adminsdk-8rg04-49aaea9062.json ./dist/config/",
+    "build": "tsc --pretty ",
     "start": "prisma migrate deploy && node dist/server.js",
     "typecheck": "tsc --watch",
     "dev": "node --watch dist/server.js",
