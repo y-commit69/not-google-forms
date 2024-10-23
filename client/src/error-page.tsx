@@ -27,5 +27,7 @@ export const ErrorPage = () => {
         {error.data?.message && <p>{error.data.message}</p>}
       </div>
     );
+  } else {
+    return <div>Oops</div>;
   }
 };

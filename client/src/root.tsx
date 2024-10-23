@@ -1,20 +1,22 @@
 import { ReactNode } from "react";
-import { Link, useFetcher, useLoaderData } from "react-router-dom";
 import type { LoaderFunction } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+import { CreateNewBlankForm } from "./routes/create-page";
+import { API_URL } from "./utils/utils";
 
 type Users = {
   id: number;
   name: string;
   email: string;
 };
-const API_URL =
-  import.meta.env.VITE_API_URL || "https://not-google-forms.onrender.com/api";
+
 const getUsers = async (): Promise<{ users: Users[] }> => {
   const res = await fetch(API_URL);
   if (!res.ok) {
-    throw new Error("Failed to fetch users");
+    throw new Error("failed to fetch users");
   }
   const users = await res.json();
+  console.log(users);
   return users;
 };
 
@@ -25,8 +27,6 @@ export const rootLoader: LoaderFunction = async () => {
 
 export const Root = () => {
   const usersData = useLoaderData() as Users[];
-  console.log(usersData);
-  console.log(usersData);
   return (
     <>
       <ul>
@@ -37,6 +37,7 @@ export const Root = () => {
           </li>
         ))}
       </ul>
+
       <NavBar />
       <TemplateGallery />
       <RecentForms />
@@ -44,7 +45,7 @@ export const Root = () => {
   );
 };
 
-const NavBar = () => {
+export const NavBar = () => {
   return (
     <>
       <nav className="p3-pink-color flex h-[280px] px-16 pt-20 text-white">
@@ -61,7 +62,12 @@ const NavBar = () => {
       </nav>
       <ul className="ml-auto mr-auto flex w-full max-w-[1280px] gap-16 px-16 pb-20 pt-20">
         <li className="ml-10px">Search</li>
-        <li>Account</li>
+        <li>
+          <Link to={"/register"}>Register</Link>
+        </li>
+        <li>
+          <Link to={"/login"}>login</Link>
+        </li>
       </ul>
     </>
   );
@@ -151,39 +157,6 @@ export const NewFormPage = () => {
       <NavBar />
       <CreateNewBlankForm />
     </>
-  );
-};
-
-const CreateNewBlankForm = () => {
-  const fetcher = useFetcher();
-  return (
-    <section className="ml-auto mr-auto w-full max-w-[1280px] px-16 pb-[40px] pt-[40px]">
-      <header>
-        <p className="pb-10">Create a new form</p>
-        <fetcher.Form method="post" action="'/newform">
-          <fieldset>
-            <input type="text" name="title" placeholder="Title" />
-            <input type="text" name="description" placeholder="Description" />
-          </fieldset>
-
-          <fieldset>
-            <input type="text" name="question" placeholder="Question" />
-            <div className="flex items-center gap-10 pb-10">
-              <input
-                type="checkbox"
-                name="option1"
-                id="option1"
-                className="mb-[unset] w-[unset] gap-10"
-              />
-              <label htmlFor="option1">Option 1</label>
-            </div>
-          </fieldset>
-
-          <button type="submit">Create</button>
-        </fetcher.Form>
-      </header>
-      <main></main>
-    </section>
   );
 };
 

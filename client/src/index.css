@@ -45,6 +45,9 @@ form input[type='text'], form input[type='email'] {
 form input[type='checkbox'] {
     accent-color: var(--pink);
 }
+form input[type='file'] {
+  all: unset;
+}
 form button{
   border-radius: 7px;
   background: transparent;
@@ -58,6 +61,11 @@ fieldset {
 form fieldset {
   display: flex;
   flex-direction: column;
+}
+
+select {
+  font: inherit;
+  width: 320px;
 }
 a{
   text-decoration: none;

@@ -20,3 +20,5 @@ dist
 
 *.db
 .env
+
+not--forms-firebase-adminsdk-8rg04-49aaea9062.json
