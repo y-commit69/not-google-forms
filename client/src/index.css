@@ -23,6 +23,10 @@ font-size: 18px;
 ul {
   list-style: none;
 }
+
+button {
+  font:  inherit;
+}
 form {
   display: flex;
   flex-direction: column;
