@@ -10,7 +10,8 @@ font-size: 18px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --pink: color(display-p3 1 0.64 0.703);
+  --pink: rgb(201, 201, 201);
+  --neon: color(display-p3 0.856 1 0.205)
 }
 * {
   margin: 0;
@@ -24,6 +25,7 @@ ul {
 form {
   display: flex;
   flex-direction: column;
+  font: inherit;
 }
 form input, form  button {
   font: inherit;
@@ -56,14 +58,18 @@ form button{
 }
 fieldset {
   all: unset;
+  font: inherit;
 }
 
 form fieldset {
   display: flex;
   flex-direction: column;
+  font: inherit
 }
 
 select {
+  /* appearance: none; */
+  border: 1px solid #ccc; 
   font: inherit;
   width: 320px;
 }
@@ -74,9 +80,12 @@ a{
 a:hover {
   text-decoration: underline;
 }
-a[href]:visited {
+/* a[href]:visited {
   color: inherit;
-}
+} */
 .p3-pink-color {
   background-color: var(--pink);
+}
+.p3-neon-color {
+  color: var(--neon);
 }

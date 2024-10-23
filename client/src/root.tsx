@@ -18,10 +18,7 @@ export const NavBar = () => {
       <nav className="p3-pink-color flex h-[280px] px-16 pt-20 text-white">
         <div className="ml-auto mr-auto flex w-full max-w-[1280px] flex-col justify-end">
           <div className="pb-[40px]">
-            <Link
-              to="/"
-              className="gap-10 text-4xl text-purple-400 lg:text-7xl"
-            >
+            <Link to="/" className="p3-neon-color gap-10 text-4xl lg:text-7xl">
               not google forms
             </Link>
           </div>
@@ -71,7 +68,7 @@ const TemplateBlankForm = () => {
     <>
       <Link to="/create">
         <TemplateItem text="Blank form →">
-          <div className="h-[200px] w-[200px] bg-slate-300"></div>
+          <div className="h-[200px] w-[200px] bg-gray-300"></div>
         </TemplateItem>
       </Link>
     </>
@@ -82,7 +79,7 @@ const TemplateContactInfo = () => {
     <>
       <Link to="/contact-template">
         <TemplateItem text="Contact information →">
-          <div className="h-[200px] w-[200px] bg-orange-300"></div>
+          <div className="h-[200px] w-[200px] bg-gray-300"></div>
         </TemplateItem>
       </Link>
     </>
@@ -94,7 +91,7 @@ const TemplatePartyInvite = () => {
     <>
       <Link to="/party-template">
         <TemplateItem text="Party invite →">
-          <div className="h-[200px] w-[200px] bg-blue-300"></div>
+          <div className="h-[200px] w-[200px] bg-gray-300"></div>
         </TemplateItem>
       </Link>
     </>

@@ -23,14 +23,14 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://not-google-forms.pages.dev"],
+    origin: ["http://localhost:5174", "https://not-google-forms.pages.dev"],
     credentials: true,
   })
 );
 
 app.get("/api", async (req: Request, res: Response) => {
   try {
-    const users = await prisma.user.findMany();
+    const users = await prisma.form.findMany();
     res.json(users);
   } catch (error) {
     console.error(error);
@@ -41,17 +41,46 @@ app.get("/api", async (req: Request, res: Response) => {
 });
 
 app.post("/create", async (req, res) => {
+  console.log(req.body);
   try {
     const parsedForm = await parseImage(req, req.headers);
     if (!parsedForm) return;
     console.log("received form data", parsedForm.textFields);
-    const { title, description, untitledQuestion, radio } =
-      parsedForm.textFields;
-    console.log({ title, description, untitledQuestion, radio });
+    const formData = parsedForm.textFields;
+    console.log(formData);
+    const title = formData.title;
+    const description = formData.description;
+    const untitledQuestion = formData.untitledQuestion;
+    const questionType = formData.questionType;
+    const multipleChoiceOption1 = formData.multipleChoiceOption1;
+    const multipleChoiceOption2 = formData.multipleChoiceOption2;
+    const option1Checked = false;
+    const option2Checked = false;
 
-    res
-      .status(HTTP_STATUS.CREATED)
-      .json({ message: "Form created successfully" });
+    const newTemplate = await prisma.template.create({
+      data: {
+        title: title,
+        description: description,
+        questions: {
+          create: [
+            {
+              text: untitledQuestion,
+              type: questionType,
+              order: 1,
+              option1: multipleChoiceOption1,
+              option2: multipleChoiceOption2,
+              option1Checked: option1Checked,
+              option2Checked: option2Checked,
+            },
+          ],
+        },
+      },
+    });
+
+    res.status(HTTP_STATUS.CREATED).json({
+      message: "Form created successfully",
+      templateId: newTemplate.id,
+    });
   } catch (error) {
     console.error(error);
     res
