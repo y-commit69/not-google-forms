@@ -12,7 +12,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --pink: rgb(201, 201, 201);
-  --neon: color(display-p3 0.856 1 0.205)
+  --neon: color(display-p3 0.856 1 0.205);
   --background-color: #eee;
   --foreground-color: #111;
 }
@@ -26,9 +26,7 @@ body {
   :root {
     --background-color: #111;
     --foreground-color: #eee;
-  --neon: color(display-p3 0.856 1 0.205)
-
-    
+    --neon: color(display-p3 0.856 1 0.205)
   }
 }
 * {
