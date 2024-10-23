@@ -89,6 +89,22 @@ app.post("/create", async (req, res) => {
   }
 });
 
+app.get("/templates", async (req, res) => {
+  try {
+    const templates = await prisma.template.findMany({
+      include: {
+        questions: true,
+      },
+    });
+    res.status(HTTP_STATUS.OK).json(templates);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+      .json({ error: "failed to fetch templates" });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
