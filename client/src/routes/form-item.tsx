@@ -72,6 +72,7 @@ export const FormItemPage = () => {
                           placeholder="Option 1"
                           className="border-0-class mb-0"
                           defaultValue={question.option1}
+                          disabled
                         />
                       </fieldset>
 
@@ -88,6 +89,7 @@ export const FormItemPage = () => {
                           placeholder="Option 2"
                           className="border-0-class mb-0"
                           defaultValue={question.option2}
+                          disabled
                         />
                       </fieldset>
                     </>
@@ -97,34 +99,34 @@ export const FormItemPage = () => {
                       <fieldset className="flex flex-row items-center gap-6">
                         <input
                           type="radio"
-                          name="checkboxRadio1"
-                          value="false"
-                          disabled
-                          id="option1"
+                          name="checkboxRadio"
+                          defaultValue={question.option1Checked.toString()}
                           className="mb-[unset] w-[unset] gap-10"
                         />
                         <input
                           type="text"
                           name="checkboxOption1"
                           placeholder="Option 1"
-                          className="mb-0"
+                          className="border-0-class mb-0"
+                          defaultValue={question.option1}
+                          disabled
                         />
                       </fieldset>
 
                       <fieldset className="flex flex-row items-center gap-6">
                         <input
                           type="radio"
-                          name="checkboxRadio2"
-                          value="false"
-                          disabled
-                          id="option2"
+                          name="checkboxRadio"
+                          defaultValue={question.option2Checked.toString()}
                           className="mb-[unset] w-[unset] gap-10"
                         />
                         <input
                           type="text"
                           name="multipleChoiceOption2"
                           placeholder="Option 2"
-                          className="mb-0"
+                          className="border-0-class mb-0"
+                          defaultValue={question.option2}
+                          disabled
                         />
                       </fieldset>
                     </>

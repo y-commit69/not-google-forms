@@ -83,7 +83,6 @@ const CreateNewBlankForm = () => {
                     <input
                       type="checkbox"
                       name="multipleChoiceCheckbox1"
-                      value="false"
                       disabled
                       className="mb-[unset] w-[unset] gap-10"
                     />
@@ -99,7 +98,6 @@ const CreateNewBlankForm = () => {
                     <input
                       type="checkbox"
                       name="multipleChoiceCheckbox2"
-                      value="false"
                       disabled
                       className="mb-[unset] w-[unset] gap-10"
                     />
@@ -117,7 +115,7 @@ const CreateNewBlankForm = () => {
                   <fieldset className="flex flex-row items-center gap-6">
                     <input
                       type="radio"
-                      name="checkboxRadio1"
+                      name="checkboxRadio"
                       value="false"
                       disabled
                       id="option1"
@@ -134,7 +132,7 @@ const CreateNewBlankForm = () => {
                   <fieldset className="flex flex-row items-center gap-6">
                     <input
                       type="radio"
-                      name="checkboxRadio2"
+                      name="checkboxRadio"
                       value="false"
                       disabled
                       id="option2"
