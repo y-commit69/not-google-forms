@@ -116,7 +116,7 @@ export const NavBar = () => {
 const Search = (props: { isLoading?: boolean }) => {
   return (
     <>
-      <section className="ml-auto mr-auto flex w-full max-w-[1280px] flex-col gap-16 pt-20">
+      <section className="ml-auto mr-auto flex w-full max-w-[1280px] flex-col gap-16 px-16 pt-20 lg:px-0">
         <Form role="search">
           <label htmlFor="">
             <input
@@ -142,7 +142,7 @@ const Search = (props: { isLoading?: boolean }) => {
 const TemplateGallery = () => {
   return (
     <>
-      <section className="ml-auto mr-auto max-w-[1280px] pb-20 pt-[20px]">
+      <section className="ml-auto mr-auto max-w-[1280px] px-16 pb-20 pt-[20px] lg:px-0">
         <header className="pb-10">Start a new form</header>
         <ul className="flex gap-20 overflow-x-auto whitespace-nowrap">
           <li>
@@ -196,7 +196,7 @@ const RecentForms = () => {
   console.log(templates);
   return (
     <>
-      <section className="mb-20 ml-auto mr-auto max-w-[1280px]">
+      <section className="mb-20 ml-auto mr-auto max-w-[1280px] px-16 lg:px-0">
         <div className="pb-20">
           <header className="pb-10">Recent forms</header>
           <ul>

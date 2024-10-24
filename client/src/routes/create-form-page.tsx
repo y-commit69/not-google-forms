@@ -34,7 +34,7 @@ const CreateNewBlankForm = () => {
   const [inputType, setInputType] = useState("multipleChoice");
   const fetcher = useFetcher();
   return (
-    <section className="ml-auto mr-auto w-full max-w-[1280px] pb-[40px] pt-[40px]">
+    <section className="ml-auto mr-auto w-full max-w-[1280px] px-16 pb-[40px] pt-[40px] lg:px-0">
       <header>
         <p className="pb-10">Create a new form</p>
         {fetcher.data?.error && (
@@ -91,7 +91,7 @@ const CreateNewBlankForm = () => {
                       type="text"
                       name="multipleChoiceOption1"
                       placeholder="Option 1"
-                      className="mb-0"
+                      className="mb-0 max-w-[300px]"
                     />
                   </fieldset>
 
@@ -107,7 +107,7 @@ const CreateNewBlankForm = () => {
                       type="text"
                       name="multipleChoiceOption2"
                       placeholder="Option 2"
-                      className="mb-0"
+                      className="mb-0 max-w-[300px]"
                     />
                   </fieldset>
                 </>
@@ -127,7 +127,7 @@ const CreateNewBlankForm = () => {
                       type="text"
                       name="checkboxOption1"
                       placeholder="Option 1"
-                      className="mb-0"
+                      className="mb-0 max-w-[300px]"
                     />
                   </fieldset>
 
@@ -144,7 +144,7 @@ const CreateNewBlankForm = () => {
                       type="text"
                       name="multipleChoiceOption2"
                       placeholder="Option 2"
-                      className="mb-0"
+                      className="mb-0 max-w-[300px]"
                     />
                   </fieldset>
                 </>

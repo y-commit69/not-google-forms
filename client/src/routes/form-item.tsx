@@ -26,7 +26,7 @@ export const FormItemPage = () => {
       {formDataAsync.map((form) => (
         <section
           key={form.id}
-          className="ml-auto mr-auto w-full max-w-[1280px] pb-[40px] pt-[40px]"
+          className="ml-auto mr-auto w-full max-w-[1280px] px-16 pb-[40px] pt-[40px] lg:px-0"
         >
           <header>
             <p className="pb-10">{form.title}</p>
