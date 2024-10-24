@@ -23,7 +23,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://not-google-forms.pages.dev"],
+    origin: [
+      "http://localhost:5173",
+      "https://not-google-forms.pages.dev",
+      "https://not-google-forms.onrender.com",
+    ],
     credentials: true,
   })
 );
