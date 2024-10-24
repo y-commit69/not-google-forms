@@ -1,10 +1,4 @@
-import {
-  json,
-  useFetcher,
-  useLoaderData,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { json, useFetcher, useLoaderData, useParams } from "react-router-dom";
 import type { Template } from "../root";
 import { SERVER_URL } from "../utils/utils";
 
