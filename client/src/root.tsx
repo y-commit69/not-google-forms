@@ -9,8 +9,10 @@ import {
   ScrollRestoration,
   Outlet,
   useSearchParams,
+  useNavigation,
 } from "react-router-dom";
 import { HTTP_STATUS, SERVER_URL } from "./utils/utils";
+import { RefreshCw } from "lucide-react";
 
 export const rootLoader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -67,11 +69,12 @@ export const IndexPage = () => {
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("search");
   console.log("searchdata", searchDataAsync);
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
   return (
     <>
       <section className="mb-20">
-        <Search />
-
+        <Search isLoading={isLoading} />
         {searchQuery && searchDataAsync ? (
           <ul className="ml-auto mr-auto flex w-full max-w-[1280px]">
             {searchDataAsync.map((template) => (
@@ -110,17 +113,25 @@ export const NavBar = () => {
   );
 };
 
-const Search = () => {
+const Search = (props: { isLoading?: boolean }) => {
   return (
     <>
       <section className="ml-auto mr-auto flex w-full max-w-[1280px] flex-col gap-16 pt-20">
         <Form role="search">
-          <input
-            type="search"
-            name="search"
-            className="ml-10px border-0 border-b-2"
-            placeholder="Search"
-          />
+          <label htmlFor="">
+            <input
+              type="search"
+              name="search"
+              className="ml-10px border-0 border-b-2"
+              placeholder="Search"
+            />
+            {props.isLoading && (
+              <span className="-ml-[44px]">
+                <RefreshCw size={18} className="animate-spin text-gray-400" />
+              </span>
+            )}
+          </label>
+
           <button type="submit">search</button>
         </Form>
       </section>
