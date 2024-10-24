@@ -40,12 +40,6 @@ export const FormItemPage = () => {
               action="/create"
               encType="multipart/form-data"
             >
-              <fieldset className="mb-20">
-                <input type="file" name="image" multiple />
-                <small id="fileHelpText" className="text-gray-400">
-                  Accepted formats: JPG, PNG, up to 5MB.
-                </small>
-              </fieldset>
               {form.questions.map((question) => (
                 <fieldset key={question.id}>
                   <input

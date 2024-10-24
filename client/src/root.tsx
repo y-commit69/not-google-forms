@@ -205,7 +205,7 @@ const RecentForms = () => {
                 <li className="flex h-[180px] w-[160px] flex-col justify-end pb-10">
                   <header className="h-[160px] bg-gray-300"></header>
                   <footer className="flex flex-col">
-                    <span>{template.title}</span>
+                    <span>{`${template.title} →`}</span>
                     <span className="text-xs text-gray-500">created at:</span>
                     <span className="text-xs text-gray-500">
                       {formatTime(template.createdAt)}
