@@ -79,7 +79,7 @@ export const IndexPage = () => {
           <ul className="ml-auto mr-auto flex w-full max-w-[1280px]">
             {searchDataAsync.map((template) => (
               <Link key={template.id} to={`/forms/${template.id}`}>
-                <li className="h-[180px] w-[160px]">
+                <li className="h-[180px] w-[160px] px-16 lg:px-0">
                   <header className="h-[160px] bg-gray-300"></header>
                   <footer>{template.title}</footer>
                 </li>
