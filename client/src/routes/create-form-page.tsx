@@ -34,7 +34,7 @@ const CreateNewBlankForm = () => {
   const [inputType, setInputType] = useState("multipleChoice");
   const fetcher = useFetcher();
   return (
-    <section className="ml-auto mr-auto w-full max-w-[1280px] px-16 pb-[40px] pt-[40px]">
+    <section className="ml-auto mr-auto w-full max-w-[1280px] pb-[40px] pt-[40px]">
       <header>
         <p className="pb-10">Create a new form</p>
         {fetcher.data?.error && (

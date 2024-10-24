@@ -8,25 +8,44 @@ import {
   useParams,
   ScrollRestoration,
   Outlet,
+  useSearchParams,
 } from "react-router-dom";
-import { SERVER_URL } from "./utils/utils";
+import { HTTP_STATUS, SERVER_URL } from "./utils/utils";
 
 export const rootLoader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
-  const searchParams = url.searchParams.get("search");
-  console.log(searchParams);
+  const searchQuery = url.searchParams.get("search");
+  console.log(searchQuery);
   try {
+    if (searchQuery !== null) {
+      const response = await fetch(
+        `${SERVER_URL}/search?search=${encodeURIComponent(searchQuery)}`,
+      );
+
+      if (!response.ok) {
+        return json({ error: `search failed: ${response.statusText}` });
+      }
+
+      const searchResults = await response.json();
+      return json(searchResults);
+    }
     const response = await fetch(`${SERVER_URL}/templates`);
     console.log("res: ", response);
     if (!response.ok) {
-      throw new Error("Failed to fetch templates");
+      return json(
+        { error: "failed to fetch templates" },
+        { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
+      );
     }
     const templates = await response.json();
     console.log("remplae", templates);
     return json(templates);
   } catch (error) {
     console.error(error);
-    return json({ error: "failed to fetch templates" }, { status: 500 });
+    return json(
+      { error: "failed to fetch templates" },
+      { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
+    );
   }
 };
 
@@ -44,11 +63,33 @@ export const Root = () => {
 };
 
 export const IndexPage = () => {
+  const searchDataAsync = useLoaderData() as Template[];
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("search");
+  console.log("searchdata", searchDataAsync);
   return (
     <>
-      <Search />
-      <TemplateGallery />
-      <RecentForms />
+      <section className="mb-20">
+        <Search />
+
+        {searchQuery && searchDataAsync ? (
+          <ul className="ml-auto mr-auto flex w-full max-w-[1280px]">
+            {searchDataAsync.map((template) => (
+              <Link key={template.id} to={`/forms/${template.id}`}>
+                <li className="h-[180px] w-[160px]">
+                  <header className="h-[160px] bg-gray-300"></header>
+                  <footer>{template.title}</footer>
+                </li>
+              </Link>
+            ))}
+          </ul>
+        ) : (
+          <>
+            <TemplateGallery />
+            <RecentForms />
+          </>
+        )}
+      </section>
     </>
   );
 };
@@ -72,7 +113,7 @@ export const NavBar = () => {
 const Search = () => {
   return (
     <>
-      <section className="ml-auto mr-auto flex w-full max-w-[1280px] gap-16 px-16 pt-20">
+      <section className="ml-auto mr-auto flex w-full max-w-[1280px] flex-col gap-16 pt-20">
         <Form role="search">
           <input
             type="search"
@@ -90,7 +131,7 @@ const Search = () => {
 const TemplateGallery = () => {
   return (
     <>
-      <section className="ml-auto mr-auto max-w-[1280px] px-16 pb-20 pt-[20px]">
+      <section className="ml-auto mr-auto max-w-[1280px] pb-20 pt-[20px]">
         <header className="pb-10">Start a new form</header>
         <ul className="flex gap-20 overflow-x-auto whitespace-nowrap">
           <li>
@@ -144,7 +185,7 @@ const RecentForms = () => {
   console.log(templates);
   return (
     <>
-      <section className="mb-20 ml-auto mr-auto max-w-[1280px] px-16">
+      <section className="mb-20 ml-auto mr-auto max-w-[1280px]">
         <div className="pb-20">
           <header className="pb-10">Recent forms</header>
           <ul>
