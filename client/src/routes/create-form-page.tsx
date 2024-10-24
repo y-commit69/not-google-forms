@@ -59,7 +59,7 @@ const CreateNewBlankForm = () => {
           <fieldset className="mb-20">
             <input type="file" name="image" multiple />
             <small id="fileHelpText" className="text-gray-400">
-              Accepted formats: JPG, PNG, up to 5MB.
+              Accepted formats: JPG, PNG, up to 2MB.
             </small>
           </fieldset>
 

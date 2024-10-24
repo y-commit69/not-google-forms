@@ -74,14 +74,17 @@ export const IndexPage = () => {
       <section className="mb-20">
         <Search isLoading={isLoading} />
         {searchQuery && searchDataAsync ? (
-          <ul className="ml-auto mr-auto flex w-full max-w-[1280px]">
+          <ul className="ml-auto mr-auto flex w-full max-w-[1280px] gap-10">
             {searchDataAsync.map((template) => (
-              <Link key={template.id} to={`/forms/${template.id}`}>
-                <li className="h-[180px] w-[160px] px-16 lg:px-0">
-                  <header className="h-[160px] bg-gray-300"></header>
+              <li
+                key={template.id}
+                className="flex h-[180px] w-[160px] px-16 lg:px-0"
+              >
+                <Link to={`/forms/${template.id}`}>
+                  <header className="h-[120px] w-[160px] bg-gray-300"></header>
                   <footer>{template.title}</footer>
-                </li>
-              </Link>
+                </Link>
+              </li>
             ))}
           </ul>
         ) : (
