@@ -1,7 +1,6 @@
 import { json, useFetcher, useLoaderData } from "react-router-dom";
-import { SERVER_URL } from "../utils/utils";
-import { NavBar } from "../root";
 import type { Template } from "../root";
+import { SERVER_URL } from "../utils/utils";
 
 export const formItemLoader = async () => {
   try {
