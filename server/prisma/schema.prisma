@@ -20,8 +20,6 @@ model Template {
   questions   Question[]
   forms       Form[]
   likes       Int        @default(0)
-  comments    Comment[]
-  tags        Tag[]
 }
 
 model Question {
@@ -31,9 +29,9 @@ model Question {
   type       String
   text       String
   order      Int
-  answers    Answer[]
-  option1    String?
-  option2    String?
+
+  option1 String?
+  option2 String?
 
   option1Checked Boolean @default(false)
   option2Checked Boolean @default(false)
@@ -45,29 +43,4 @@ model Form {
   template   Template @relation(fields: [templateId], references: [id])
   userId     String
   createdAt  DateTime @default(now())
-  answers    Answer[]
-}
-
-model Answer {
-  id         String   @id @default(uuid())
-  formId     String
-  form       Form     @relation(fields: [formId], references: [id])
-  questionId String
-  question   Question @relation(fields: [questionId], references: [id])
-  value      String
-}
-
-model Comment {
-  id         String   @id @default(uuid())
-  text       String
-  userId     String
-  templateId String
-  template   Template @relation(fields: [templateId], references: [id])
-  createdAt  DateTime @default(now())
-}
-
-model Tag {
-  id        String     @id @default(uuid())
-  name      String     @unique
-  templates Template[]
 }
