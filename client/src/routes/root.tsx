@@ -5,13 +5,12 @@ import {
   Link,
   LoaderFunctionArgs,
   useLoaderData,
-  useParams,
   ScrollRestoration,
   Outlet,
   useSearchParams,
   useNavigation,
 } from "react-router-dom";
-import { HTTP_STATUS, SERVER_URL } from "./utils/utils";
+import { formatTime, HTTP_STATUS, SERVER_URL } from "../utils/utils";
 import { RefreshCw } from "lucide-react";
 
 export const rootLoader = async ({ request }: LoaderFunctionArgs) => {
@@ -55,7 +54,6 @@ export const Root = () => {
   return (
     <>
       <NavBar />
-
       <ScrollRestoration />
       <div id="outler">
         <Outlet />
@@ -132,7 +130,7 @@ const Search = (props: { isLoading?: boolean }) => {
             )}
           </label>
 
-          <button type="submit">search</button>
+          <button type="submit">Search</button>
         </Form>
       </section>
     </>
@@ -147,13 +145,6 @@ const TemplateGallery = () => {
         <ul className="flex gap-20 overflow-x-auto whitespace-nowrap">
           <li>
             <TemplateBlankForm />
-          </li>
-          <li>
-            <TemplateContactInfo />
-          </li>
-
-          <li>
-            <TemplatePartyInvite />
           </li>
         </ul>
       </section>
@@ -182,14 +173,6 @@ export type Template = {
   }[];
 };
 
-function formatTime(dateString: string) {
-  const date = new Date(dateString);
-  return date.toLocaleDateString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  });
-}
 const RecentForms = () => {
   const templates = useLoaderData() as Template[];
 
@@ -221,50 +204,11 @@ const RecentForms = () => {
   );
 };
 
-export const FormItem = () => {
-  const formDataAsync = useLoaderData() as Template[];
-  const params = useParams();
-  console.log(params);
-  return (
-    <>
-      <div>Form item id: {params.id}</div>
-      {formDataAsync.map((data) => (
-        <>
-          <span>{data.title}</span>
-        </>
-      ))}
-    </>
-  );
-};
-
 const TemplateBlankForm = () => {
   return (
     <>
       <Link to="/create">
         <TemplateItemStatic text="Blank form →">
-          <div className="h-[180px] w-[160px] bg-gray-300"></div>
-        </TemplateItemStatic>
-      </Link>
-    </>
-  );
-};
-const TemplateContactInfo = () => {
-  return (
-    <>
-      <Link to="forms/contact-template">
-        <TemplateItemStatic text="Contact info →">
-          <div className="h-[180px] w-[160px] bg-gray-300"></div>
-        </TemplateItemStatic>
-      </Link>
-    </>
-  );
-};
-
-const TemplatePartyInvite = () => {
-  return (
-    <>
-      <Link to="forms/party-template">
-        <TemplateItemStatic text="Party invite →">
           <div className="h-[180px] w-[160px] bg-gray-300"></div>
         </TemplateItemStatic>
       </Link>
@@ -279,22 +223,6 @@ const TemplateItemStatic = (props: { text: string; children?: ReactNode }) => {
         {props.children}
         <p className="">{props.text}</p>
       </main>
-    </>
-  );
-};
-
-export const ContactTemplatePage = () => {
-  return (
-    <>
-      <div>contact template</div>
-    </>
-  );
-};
-
-export const PartyInviteTemplatePage = () => {
-  return (
-    <>
-      <div>party invite template</div>
     </>
   );
 };

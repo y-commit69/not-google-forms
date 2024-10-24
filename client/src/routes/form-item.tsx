@@ -1,5 +1,5 @@
 import { json, useFetcher, useLoaderData, useParams } from "react-router-dom";
-import type { Template } from "../root";
+import type { Template } from "./root";
 import { SERVER_URL } from "../utils/utils";
 
 export const formItemLoader = async () => {

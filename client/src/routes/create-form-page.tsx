@@ -1,4 +1,9 @@
-import { ActionFunctionArgs, redirect, useFetcher } from "react-router-dom";
+import {
+  ActionFunctionArgs,
+  json,
+  redirect,
+  useFetcher,
+} from "react-router-dom";
 import { SERVER_URL } from "../utils/utils";
 import { useState } from "react";
 
@@ -14,7 +19,7 @@ export async function createNewFormAction({ request }: ActionFunctionArgs) {
       body: formData,
     });
     if (!response.ok) {
-      throw new Error("Failed to create form");
+      return json({ error: "failed to create form" });
     }
     return redirect("/");
   } catch (error) {

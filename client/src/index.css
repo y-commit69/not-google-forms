@@ -1,7 +1,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -16,6 +15,7 @@
   --background-color: #ffffff;
   --foreground-color: #111;
 }
+
 body {
   background-color: var(--background-color);
   color: var(--foreground-color);
@@ -35,13 +35,12 @@ body {
   box-sizing: border-box;
 }
 
-
 ul {
   list-style: none;
 }
 
 button {
-  font:  inherit;
+  font: inherit;
 }
 form {
   display: flex;
@@ -101,9 +100,7 @@ a{
 a:hover {
   text-decoration: underline;
 }
-/* a[href]:visited {
-  color: inherit;
-} */
+
 .p3-pink-color {
   background-color: var(--pink);
 }

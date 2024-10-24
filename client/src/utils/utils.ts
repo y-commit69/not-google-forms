@@ -13,3 +13,12 @@ export const HTTP_STATUS = {
   NOT_FOUND: 404,
   INTERNAL_SERVER_ERROR: 500,
 } as const;
+
+export function formatTime(dateString: string) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+}

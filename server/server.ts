@@ -1,9 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Multer } from "@ts-stack/multer";
 import cors from "cors";
-import type { Application, Request, Response } from "express";
 import express from "express";
-
 import { HTTP_STATUS } from "./utils/utils.js";
 
 const prisma = new PrismaClient();
@@ -16,7 +14,7 @@ const multer = new Multer({
 
 const parseImage = multer.single("image");
 
-const app: Application = express();
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -31,18 +29,6 @@ app.use(
     credentials: true,
   })
 );
-
-app.get("/api", async (req: Request, res: Response) => {
-  try {
-    const users = await prisma.form.findMany();
-    res.json(users);
-  } catch (error) {
-    console.error(error);
-    res
-      .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-      .json({ error: "Something went wrong" });
-  }
-});
 
 app.post("/create", async (req, res) => {
   console.log(req.body);
@@ -82,14 +68,14 @@ app.post("/create", async (req, res) => {
     });
 
     res.status(HTTP_STATUS.CREATED).json({
-      message: "Form created successfully",
+      message: "form created successfully",
       templateId: newTemplate.id,
     });
   } catch (error) {
     console.error(error);
     res
       .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-      .json({ error: "Failed to create form" });
+      .json({ error: "failed to create form" });
   }
 });
 

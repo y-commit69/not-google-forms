@@ -2,16 +2,10 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ErrorPage } from "./error-page.tsx";
 import "./index.css";
+import { IndexPage, Root, rootLoader } from "./routes/root.tsx";
 import {
-  ContactTemplatePage,
-  IndexPage,
-  PartyInviteTemplatePage,
-  Root,
-  rootLoader,
-} from "./root.tsx";
-import {
-  createNewFormAction,
   CreateFormPage,
+  createNewFormAction,
 } from "./routes/create-form-page.tsx";
 import { formItemLoader, FormItemPage } from "./routes/form-item.tsx";
 
@@ -36,14 +30,6 @@ const router = createBrowserRouter([
         path: "forms/:id",
         element: <FormItemPage />,
         loader: formItemLoader,
-      },
-      {
-        path: "forms/contact-template",
-        element: <ContactTemplatePage />,
-      },
-      {
-        path: "forms/party-template",
-        element: <PartyInviteTemplatePage />,
       },
     ],
   },
