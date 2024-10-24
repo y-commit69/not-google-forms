@@ -35,7 +35,7 @@ export const FormItemPage = () => {
     <>
       <section className="ml-auto mr-auto w-full max-w-[1280px] px-16 pb-[40px] pt-[40px] lg:px-0">
         <header>
-          <p className="pb-10">{currentForm.title}</p>
+          <p className="pb-20">{currentForm.title}</p>
           {fetcher.data?.error && (
             <div className="mb-4 ml-auto mr-auto flex w-full max-w-[1280px] rounded-md border border-red-200 bg-red-50 p-4">
               <p className="text-red-600">{fetcher.data.error}</p>

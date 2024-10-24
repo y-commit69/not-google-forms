@@ -2,6 +2,8 @@
 <img src="client/public/preview-responsive.png">
 <img src="client/public/preview-search.png">
 <img src="client/public/preview-route-error-handling.png">
+<img src="client/public/preview-input-error-handling.png">
+
 <img src="client/public/preview-dark-mode.png">
 
 https://github.com/user-attachments/assets/35bcc9bf-019b-4874-beaa-ea9e980b274b
