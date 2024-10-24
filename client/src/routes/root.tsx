@@ -179,7 +179,7 @@ const RecentForms = () => {
   console.log(templates);
   return (
     <>
-      <section className="mb-20 ml-auto mr-auto max-w-[1280px] px-16 lg:px-0">
+      <section className="mb-[50px] ml-auto mr-auto max-w-[1280px] px-16 lg:px-0">
         <div className="pb-20">
           <header className="pb-10">Recent forms</header>
           <ul className="flex gap-20 overflow-x-auto whitespace-nowrap">
