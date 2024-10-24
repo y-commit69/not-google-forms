@@ -13,7 +13,7 @@
   -moz-osx-font-smoothing: grayscale;
   --pink: rgb(201, 201, 201);
   --neon: color(display-p3 0.856 1 0.205);
-  --background-color: #eee;
+  --background-color: #ffffff;
   --foreground-color: #111;
 }
 body {

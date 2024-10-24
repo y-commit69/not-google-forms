@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: ["http://localhost:5174", "https://not-google-forms.pages.dev"],
+    origin: ["http://localhost:5173", "https://not-google-forms.pages.dev"],
     credentials: true,
   })
 );
@@ -86,6 +86,41 @@ app.post("/create", async (req, res) => {
     res
       .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
       .json({ error: "Failed to create form" });
+  }
+});
+
+app.get("/search", async (req, res) => {
+  try {
+    const searchQuery = (await req.query.search) as string;
+    console.log(searchQuery);
+
+    if (!searchQuery) {
+      return res.json([]);
+    }
+    const searchResults = await prisma.template.findMany({
+      where: {
+        OR: [
+          {
+            title: {
+              contains: searchQuery.toLowerCase(),
+            },
+          },
+          {
+            description: {
+              contains: searchQuery.toLowerCase(),
+            },
+          },
+        ],
+      },
+      take: 20,
+    });
+
+    res.json(searchResults);
+  } catch (error) {
+    console.error("search error:", error);
+    res
+      .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+      .json({ error: "failed to perform search" });
   }
 });
 

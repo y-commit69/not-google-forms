@@ -22,7 +22,15 @@ export async function createNewFormAction({ request }: ActionFunctionArgs) {
     return { error: "Failed to create form. Please try again." };
   }
 }
-export const CreateNewBlankForm = () => {
+
+export const CreateFormPage = () => {
+  return (
+    <>
+      <CreateNewBlankForm />
+    </>
+  );
+};
+const CreateNewBlankForm = () => {
   const [inputType, setInputType] = useState("multipleChoice");
   const fetcher = useFetcher();
   return (
@@ -147,7 +155,6 @@ export const CreateNewBlankForm = () => {
           <button type="submit">Create</button>
         </fetcher.Form>
       </header>
-      <main></main>
     </section>
   );
 };

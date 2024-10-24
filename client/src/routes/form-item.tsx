@@ -24,7 +24,6 @@ export const FormItemPage = () => {
 
   return (
     <>
-      <NavBar />
       {formDataAsync.map((form) => (
         <section
           key={form.id}
