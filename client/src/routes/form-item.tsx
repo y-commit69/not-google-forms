@@ -49,7 +49,7 @@ export const FormItemPage = () => {
                   type="text"
                   name="questionText"
                   placeholder="Untitled Question"
-                  className="border-0-class text-green-500"
+                  className="border-0-class min-w-full text-green-500"
                   defaultValue={question.text}
                 />
 
