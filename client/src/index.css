@@ -41,6 +41,7 @@ ul {
 
 button {
   font: inherit;
+  cursor: pointer;
 }
 form {
   display: flex;
@@ -69,6 +70,7 @@ form input[type='checkbox'] {
 }
 form input[type='file'] {
   all: unset;
+  cursor: pointer;
 }
 form button{
   border-radius: 7px;
@@ -92,6 +94,7 @@ select {
   border: 1px solid var(--background-color); 
   font: inherit;
   width: 320px;
+  cursor: pointer;
 }
 a{
   text-decoration: none;
