@@ -2,7 +2,7 @@
 <img src="client/public/preview-responsive.png">
 <img src="client/public/preview-search.png">
 <img src="client/public/preview-route-error-handling.png">
-<img src="client/public/preview-input-error-handling.png">
+
 
 <img src="client/public/preview-dark-mode.png">
 
@@ -31,4 +31,4 @@ Tech stack:
 10. prisma
 11. sqlite
 
-I used native browser and node apis as much as possible to avoid dependencies. For example, I used tsc (typescript compiler) script both on client and server before starting a dev server, instead of adding ts-node, ... million other ts runner dependencies. On server, node --watch command replaced the need for nodemon and native .env support for dotenv. The whole project is built with ESM modules.
+I used native browser and node apis as much as possible to avoid dependencies. For example, I used tsc (typescript compiler) script both on client and server before starting a dev server, instead of adding ts-node, ... million other ts runner dependencies. On server, node --watch command replaced the need for nodemon and native .env support for dotenv. The whole project is built with Typescript and ESM modules.
