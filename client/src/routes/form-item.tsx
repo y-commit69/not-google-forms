@@ -69,96 +69,79 @@ export const FormItemPage = () => {
               <p className="text-red-600">{fetcher.data.error}</p>
             </div>
           )}
-          <p className="pb-20">{currentForm.title}</p>
+          <span className="block pb-10">{currentForm.title}</span>
 
           <fetcher.Form method="post" encType="multipart/form-data">
             {currentForm.questions.map((question) => (
-              <fieldset key={question.id}>
-                <input
-                  type="text"
-                  name="questionText"
-                  placeholder="Untitled Question"
-                  className="border-0-class min-w-full text-green-500"
-                  defaultValue={question.text}
-                />
+              <header key={question.id}>
+                <span className="border-0-class block min-w-full pb-10 text-green-500">
+                  {question.text}
+                </span>
 
-                <div className="flex flex-col gap-10 pb-20">
+                <div className="flex flex-col pb-20">
                   {question.type === "multipleChoice" && (
                     <>
-                      <fieldset className="flex flex-row items-center gap-6">
+                      <fieldset
+                        name="multipleChoice"
+                        className="flex flex-row items-center gap-6"
+                      >
                         <input
                           type="radio"
                           name="selectedOption"
                           className="mb-[unset] w-[unset] gap-10"
                           defaultValue={question.option1Checked.toString()}
                         />
-                        <input
-                          type="text"
-                          name="multipleChoice[0].text"
-                          placeholder="Option 1"
-                          className="border-0-class mb-0"
-                          defaultValue={question.option1}
-                          disabled
-                        />
+
+                        <span>{question.option1}</span>
                       </fieldset>
 
-                      <fieldset className="flex flex-row items-center gap-6">
+                      <fieldset
+                        name="multipleChoice"
+                        className="flex flex-row items-center gap-6"
+                      >
                         <input
                           type="radio"
                           name="selectedOption"
                           className="mb-[unset] w-[unset] gap-10"
                           defaultValue={question.option2Checked.toString()}
                         />
-                        <input
-                          type="text"
-                          name="multipleChoice[1].text"
-                          placeholder="Option 2"
-                          className="border-0-class mb-0"
-                          defaultValue={question.option2}
-                          disabled
-                        />
+                        <span>{question.option2}</span>
                       </fieldset>
                     </>
                   )}
                   {question.type === "checkboxes" && (
                     <>
-                      <fieldset className="flex flex-row items-center gap-6">
+                      <fieldset
+                        name="checkbox"
+                        className="flex flex-row items-center gap-6"
+                      >
                         <input
                           type="checkbox"
                           name="checkboxes[0].checked"
                           defaultValue={question.option1Checked.toString()}
                           className="mb-[unset] w-[unset] gap-10"
                         />
-                        <input
-                          type="text"
-                          name="checkboxes[0].text"
-                          placeholder="Option 1"
-                          className="border-0-class mb-0"
-                          defaultValue={question.option1}
-                          disabled
-                        />
+
+                        <span>{question.option1}</span>
                       </fieldset>
 
-                      <fieldset className="flex flex-row items-center gap-6">
+                      <fieldset
+                        name="checkbox"
+                        className="flex flex-row items-center gap-6"
+                      >
                         <input
                           type="checkbox"
                           name="checkboxes[1].checked"
                           defaultValue={question.option2Checked.toString()}
                           className="mb-[unset] w-[unset] gap-10"
                         />
-                        <input
-                          type="text"
-                          name="checkboxes[1].text"
-                          placeholder="Option 2"
-                          className="border-0-class mb-0"
-                          defaultValue={question.option2}
-                          disabled
-                        />
+
+                        <span>{question.option2}</span>
                       </fieldset>
                     </>
                   )}
                 </div>
-              </fieldset>
+              </header>
             ))}
 
             <input type="hidden" name="formId" value={params.id} />
