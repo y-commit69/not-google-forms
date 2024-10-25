@@ -6,7 +6,7 @@ export const formItemLoader = async () => {
   try {
     const response = await fetch(`${SERVER_URL}/templates`);
     if (!response.ok) {
-      throw new Error("Failed to fetch templates");
+      return json({ error: "Failed to fetch templates" });
     }
     const templates = await response.json();
     return json(templates);
@@ -35,22 +35,19 @@ export const FormItemPage = () => {
     <>
       <section className="ml-auto mr-auto w-full max-w-[1280px] px-16 pb-[40px] pt-[40px] lg:px-0">
         <header>
-          <p className="pb-20">{currentForm.title}</p>
           {fetcher.data?.error && (
             <div className="mb-4 ml-auto mr-auto flex w-full max-w-[1280px] rounded-md border border-red-200 bg-red-50 p-4">
               <p className="text-red-600">{fetcher.data.error}</p>
             </div>
           )}
-          <fetcher.Form
-            method="post"
-            action="/create"
-            encType="multipart/form-data"
-          >
+          <p className="pb-20">{currentForm.title}</p>
+
+          <fetcher.Form method="post" encType="multipart/form-data">
             {currentForm.questions.map((question) => (
               <fieldset key={question.id}>
                 <input
                   type="text"
-                  name="untitledQuestion"
+                  name="questionText"
                   placeholder="Untitled Question"
                   className="border-0-class text-green-500"
                   defaultValue={question.text}
@@ -61,14 +58,14 @@ export const FormItemPage = () => {
                     <>
                       <fieldset className="flex flex-row items-center gap-6">
                         <input
-                          type="checkbox"
-                          name="multipleChoiceCheckbox1"
+                          type="radio"
+                          name="selectedOption"
                           className="mb-[unset] w-[unset] gap-10"
                           defaultValue={question.option1Checked.toString()}
                         />
                         <input
                           type="text"
-                          name="multipleChoiceOption1"
+                          name="multipleChoice[0].text"
                           placeholder="Option 1"
                           className="border-0-class mb-0"
                           defaultValue={question.option1}
@@ -78,14 +75,14 @@ export const FormItemPage = () => {
 
                       <fieldset className="flex flex-row items-center gap-6">
                         <input
-                          type="checkbox"
-                          name="multipleChoiceCheckbox2"
+                          type="radio"
+                          name="selectedOption"
                           className="mb-[unset] w-[unset] gap-10"
                           defaultValue={question.option2Checked.toString()}
                         />
                         <input
                           type="text"
-                          name="multipleChoiceOption2"
+                          name="multipleChoice[1].text"
                           placeholder="Option 2"
                           className="border-0-class mb-0"
                           defaultValue={question.option2}
@@ -98,14 +95,14 @@ export const FormItemPage = () => {
                     <>
                       <fieldset className="flex flex-row items-center gap-6">
                         <input
-                          type="radio"
-                          name="checkboxRadio"
+                          type="checkbox"
+                          name="checkboxes[0].checked"
                           defaultValue={question.option1Checked.toString()}
                           className="mb-[unset] w-[unset] gap-10"
                         />
                         <input
                           type="text"
-                          name="checkboxOption1"
+                          name="checkboxes[0].text"
                           placeholder="Option 1"
                           className="border-0-class mb-0"
                           defaultValue={question.option1}
@@ -115,14 +112,14 @@ export const FormItemPage = () => {
 
                       <fieldset className="flex flex-row items-center gap-6">
                         <input
-                          type="radio"
-                          name="checkboxRadio"
+                          type="checkbox"
+                          name="checkboxes[1].checked"
                           defaultValue={question.option2Checked.toString()}
                           className="mb-[unset] w-[unset] gap-10"
                         />
                         <input
                           type="text"
-                          name="multipleChoiceOption2"
+                          name="checkboxes[1].text"
                           placeholder="Option 2"
                           className="border-0-class mb-0"
                           defaultValue={question.option2}

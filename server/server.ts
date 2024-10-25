@@ -40,12 +40,19 @@ app.post("/create", async (req, res) => {
     console.log(formData);
     const title = formData.title;
     const description = formData.description;
-    const untitledQuestion = formData.untitledQuestion;
+    const questionText = formData.questionText;
     const questionType = formData.questionType;
-    const multipleChoiceOption1 = formData.multipleChoiceOption1;
-    const multipleChoiceOption2 = formData.multipleChoiceOption2;
-    const option1Checked = false;
-    const option2Checked = false;
+
+    let option1;
+    let option2;
+
+    if (questionType === "multipleChoice") {
+      option1 = formData["multipleChoice[0].text"];
+      option2 = formData["multipleChoice[1].text"];
+    } else if (questionType === "checkboxes") {
+      option1 = formData["checkboxes[0].text"];
+      option2 = formData["checkboxes[1].text"];
+    }
 
     const newTemplate = await prisma.template.create({
       data: {
@@ -54,13 +61,13 @@ app.post("/create", async (req, res) => {
         questions: {
           create: [
             {
-              text: untitledQuestion,
+              text: questionText,
               type: questionType,
               order: 1,
-              option1: multipleChoiceOption1,
-              option2: multipleChoiceOption2,
-              option1Checked: option1Checked,
-              option2Checked: option2Checked,
+              option1: option1,
+              option2: option2,
+              option1Checked: false,
+              option2Checked: false,
             },
           ],
         },

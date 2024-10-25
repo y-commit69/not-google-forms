@@ -66,7 +66,7 @@ const CreateNewBlankForm = () => {
           <fieldset>
             <input
               type="text"
-              name="untitledQuestion"
+              name="questionText"
               placeholder="Untitled Question"
               className="text-green-500"
             />
@@ -86,14 +86,14 @@ const CreateNewBlankForm = () => {
                 <>
                   <fieldset className="flex flex-row items-center gap-6">
                     <input
-                      type="checkbox"
-                      name="multipleChoiceCheckbox1"
+                      type="radio"
+                      name="selectedOption"
                       disabled
                       className="mb-[unset] w-[unset] gap-10"
                     />
                     <input
                       type="text"
-                      name="multipleChoiceOption1"
+                      name="multipleChoice[0].text"
                       placeholder="Option 1"
                       className="mb-0 max-w-[300px]"
                     />
@@ -101,14 +101,14 @@ const CreateNewBlankForm = () => {
 
                   <fieldset className="flex flex-row items-center gap-6">
                     <input
-                      type="checkbox"
-                      name="multipleChoiceCheckbox2"
+                      type="radio"
+                      name="selectedOption"
                       disabled
                       className="mb-[unset] w-[unset] gap-10"
                     />
                     <input
                       type="text"
-                      name="multipleChoiceOption2"
+                      name="multipleChoice[1].text"
                       placeholder="Option 2"
                       className="mb-0 max-w-[300px]"
                     />
@@ -119,8 +119,8 @@ const CreateNewBlankForm = () => {
                 <>
                   <fieldset className="flex flex-row items-center gap-6">
                     <input
-                      type="radio"
-                      name="checkboxRadio"
+                      type="checkbox"
+                      name="checkboxes[0].checked"
                       value="false"
                       disabled
                       id="option1"
@@ -128,7 +128,7 @@ const CreateNewBlankForm = () => {
                     />
                     <input
                       type="text"
-                      name="checkboxOption1"
+                      name="checkboxes[0].text"
                       placeholder="Option 1"
                       className="mb-0 max-w-[300px]"
                     />
@@ -136,8 +136,8 @@ const CreateNewBlankForm = () => {
 
                   <fieldset className="flex flex-row items-center gap-6">
                     <input
-                      type="radio"
-                      name="checkboxRadio"
+                      type="checkbox"
+                      name="checkboxes[1].checked"
                       value="false"
                       disabled
                       id="option2"
@@ -145,7 +145,7 @@ const CreateNewBlankForm = () => {
                     />
                     <input
                       type="text"
-                      name="multipleChoiceOption2"
+                      name="checkboxes[1].text"
                       placeholder="Option 2"
                       className="mb-0 max-w-[300px]"
                     />

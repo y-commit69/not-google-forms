@@ -177,28 +177,30 @@ export type Template = {
 };
 
 const RecentForms = () => {
-  const templates = useLoaderData() as Template[];
-
-  console.log(templates);
+  const formsDataAsync = useLoaderData() as Template[];
+  console.log(formsDataAsync);
   return (
     <>
       <section className="mb-[50px] ml-auto mr-auto max-w-[1280px] px-16 lg:px-0">
         <div className="pb-20">
           <header className="pb-10">Recent forms</header>
           <ul className="flex gap-20 overflow-x-auto whitespace-nowrap">
-            {templates.map((template) => (
-              <Link to={`forms/${template.id}`} key={template.id}>
-                <li className="flex h-[180px] w-[160px] flex-col justify-end pb-10">
-                  <header className="h-[160px] bg-gray-300"></header>
+            {formsDataAsync.map((form) => (
+              <li
+                key={form.id}
+                className="flex h-[180px] w-[160px] flex-col justify-end pb-10"
+              >
+                <Link to={`forms/${form.id}`}>
+                  <header className="h-[160px] bg-orange-200"></header>
                   <footer className="flex flex-col">
-                    <span>{`${template.title} →`}</span>
-                    <span className="text-xs text-gray-500">created at:</span>
-                    <span className="text-xs text-gray-500">
-                      {formatTime(template.createdAt)}
+                    <span>{`${form.title} →`}</span>
+                    <span className="text-xs text-gray-400">created at:</span>
+                    <span className="text-xs text-gray-400">
+                      {formatTime(form.createdAt)}
                     </span>
                   </footer>
-                </li>
-              </Link>
+                </Link>
+              </li>
             ))}
           </ul>
         </div>
