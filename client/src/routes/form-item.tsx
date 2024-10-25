@@ -135,10 +135,11 @@ export const FormItemPage = () => {
             <input type="hidden" name="formId" value={params.id} />
             <footer className="flex gap-10">
               <button
-                className="max-w-[140px]"
+                className="max-w-[140px] cursor-not-allowed border-gray-300 text-gray-300"
                 type="submit"
                 name="intent"
                 value="submit"
+                disabled
               >
                 Submit
               </button>
