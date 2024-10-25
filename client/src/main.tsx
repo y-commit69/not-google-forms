@@ -7,7 +7,11 @@ import {
   CreateFormPage,
   createNewFormAction,
 } from "./routes/create-form-page.tsx";
-import { formItemLoader, FormItemPage } from "./routes/form-item.tsx";
+import {
+  formItemAction,
+  formItemLoader,
+  FormItemPage,
+} from "./routes/form-item.tsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +34,7 @@ const router = createBrowserRouter([
         path: "forms/:id",
         element: <FormItemPage />,
         loader: formItemLoader,
+        action: formItemAction,
       },
     ],
   },

@@ -1,4 +1,11 @@
-import { json, useFetcher, useLoaderData, useParams } from "react-router-dom";
+import {
+  ActionFunctionArgs,
+  json,
+  redirect,
+  useFetcher,
+  useLoaderData,
+  useParams,
+} from "react-router-dom";
 import type { Template } from "./root";
 import { SERVER_URL } from "../utils/utils";
 
@@ -12,6 +19,28 @@ export const formItemLoader = async () => {
     return json(templates);
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const formItemAction = async ({ request }: ActionFunctionArgs) => {
+  const formData = await request.formData();
+  let intent = formData.get("intent");
+  const formId = formData.get("formId");
+
+  if (intent === "delete") {
+    try {
+      const response = await fetch(`${SERVER_URL}/forms/${formId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        return json({ error: "failed to delete form" });
+      }
+      return redirect("/");
+    } catch (error) {
+      console.error(error);
+      return json({ error: "failed to delete form" });
+    }
   }
 };
 
@@ -132,9 +161,25 @@ export const FormItemPage = () => {
               </fieldset>
             ))}
 
-            <button className="max-w-[140px]" type="submit">
-              Submit
-            </button>
+            <input type="hidden" name="formId" value={params.id} />
+            <footer className="flex gap-10">
+              <button
+                className="max-w-[140px]"
+                type="submit"
+                name="intent"
+                value="submit"
+              >
+                Submit
+              </button>
+              <button
+                className="max-w-[140px] border-red-500 text-red-500"
+                type="submit"
+                name="intent"
+                value="delete"
+              >
+                Delete
+              </button>
+            </footer>
           </fetcher.Form>
         </header>
         <main></main>

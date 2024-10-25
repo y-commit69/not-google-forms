@@ -89,6 +89,31 @@ app.post("/create", async (req, res) => {
   }
 });
 
+app.delete("/forms/:id", async (req, res) => {
+  const formId = await req.params.id;
+  console.log("server params", formId);
+  try {
+    await prisma.$transaction(async (tx) => {
+      await tx.question.deleteMany({
+        where: {
+          templateId: formId,
+        },
+      }),
+        await tx.template.delete({
+          where: {
+            id: formId,
+          },
+        });
+    });
+    res.status(HTTP_STATUS.OK).json({ message: " form deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+      .json({ message: "failed to delete form" });
+  }
+});
+
 app.get("/search", async (req, res) => {
   try {
     const searchQuery = (await req.query.search) as string;
