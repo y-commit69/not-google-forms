@@ -78,13 +78,10 @@ export const FormItemPage = () => {
                   {question.text}
                 </span>
 
-                <div className="flex flex-col pb-20">
+                <div className="flex flex-col gap-8 pb-20">
                   {question.type === "multipleChoice" && (
                     <>
-                      <fieldset
-                        name="multipleChoice"
-                        className="flex flex-row items-center gap-6"
-                      >
+                      <label className="flex w-full items-center gap-6">
                         <input
                           type="radio"
                           name="selectedOption"
@@ -93,28 +90,22 @@ export const FormItemPage = () => {
                         />
 
                         <span>{question.option1}</span>
-                      </fieldset>
+                      </label>
 
-                      <fieldset
-                        name="multipleChoice"
-                        className="flex flex-row items-center gap-6"
-                      >
+                      <label className="flex w-full items-center gap-6">
                         <input
                           type="radio"
                           name="selectedOption"
                           className="mb-[unset] w-[unset] gap-10"
                           defaultValue={question.option2Checked.toString()}
                         />
-                        <span>{question.option2}</span>
-                      </fieldset>
+                        <span className="">{question.option2}</span>
+                      </label>
                     </>
                   )}
                   {question.type === "checkboxes" && (
                     <>
-                      <fieldset
-                        name="checkbox"
-                        className="flex flex-row items-center gap-6"
-                      >
+                      <label className="flex items-center gap-6">
                         <input
                           type="checkbox"
                           name="checkboxes[0].checked"
@@ -123,12 +114,9 @@ export const FormItemPage = () => {
                         />
 
                         <span>{question.option1}</span>
-                      </fieldset>
+                      </label>
 
-                      <fieldset
-                        name="checkbox"
-                        className="flex flex-row items-center gap-6"
-                      >
+                      <label className="flex items-center gap-6">
                         <input
                           type="checkbox"
                           name="checkboxes[1].checked"
@@ -137,7 +125,7 @@ export const FormItemPage = () => {
                         />
 
                         <span>{question.option2}</span>
-                      </fieldset>
+                      </label>
                     </>
                   )}
                 </div>
