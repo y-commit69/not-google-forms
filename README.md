@@ -1,7 +1,10 @@
 <img src="client/public/preview.png">
 <img src="client/public/preview-responsive.png">
 <img src="client/public/preview-search.png">
+
+<img src="client/public/preview-form-error-handling.png">
 <img src="client/public/preview-route-error-handling.png">
+
 
 
 <img src="client/public/preview-dark-mode.png">
