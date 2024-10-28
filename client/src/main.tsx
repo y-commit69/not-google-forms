@@ -12,6 +12,57 @@ import {
   formItemLoader,
   FormItemPage,
 } from "./routes/form-item.tsx";
+import { initReactI18next } from "react-i18next";
+import i18next from "i18next";
+
+i18next.use(initReactI18next).init({
+  debug: true,
+  // fallbackLng: "en",
+  lng: localStorage.getItem("language") || "en",
+  resources: {
+    en: {
+      translation: {
+        search: "Search",
+        startANewForm: "Start a new form",
+        blankForm: "Blank form",
+        recentForms: "Recent forms",
+        createANewForm: "Create a new form",
+        title: "Title",
+        description: "Desacription",
+        untitledQuestion: "Untitled question",
+        multipleChoice: "Multiple Choice",
+        checkboxes: "Checkboxes",
+        option: "Option",
+        create: "Create",
+        acceptedFormatsP: "Accepted formats: JPG, PNG, up to 2MB.",
+        createdAt: "created at",
+        submit: "Submit",
+        delete: "Delete",
+      },
+    },
+    uz: {
+      translation: {
+        search: "Qidiruv",
+        startANewForm: "Yangi formni boshlang",
+        blankForm: `Bo'sh form`,
+        recentForms: `So'nggi formlar`,
+        createANewForm: "Yangi formni yarating",
+        title: "Sarlavha",
+        description: "Tavsif",
+        untitledQuestion: "Nomsiz savol",
+
+        multipleChoice: "Bir nechta tanlov",
+        checkboxes: "Katakchalar",
+        option: "Variant",
+        create: "Yaratish",
+        acceptedFormatsP: "Qabul qilingan formatlar: JPG, PNG, 2MB gacha.",
+        createdAt: "yaratilgan",
+        submit: "Topshirish",
+        delete: `O'chirish`,
+      },
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {

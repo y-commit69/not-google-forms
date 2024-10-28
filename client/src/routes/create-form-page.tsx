@@ -6,6 +6,7 @@ import {
   useFetcher,
 } from "react-router-dom";
 import { SERVER_URL } from "../utils/utils";
+import { t } from "i18next";
 
 type actionErrors = {
   title?: string;
@@ -80,7 +81,7 @@ const CreateNewBlankForm = () => {
   return (
     <section className="ml-auto mr-auto w-full max-w-[1280px] px-16 pb-[50px] pt-[40px] lg:px-0">
       <header>
-        <p className="pb-10">Create a new form</p>
+        <p className="pb-10">{t("createANewForm")}</p>
         {fetcher.data?.error && (
           <div className="mb-4 ml-auto mr-auto flex w-full max-w-[1280px] rounded-md border border-red-200 bg-red-50 p-4">
             <p className="text-red-600">{fetcher.data.error}</p>
@@ -88,7 +89,7 @@ const CreateNewBlankForm = () => {
         )}
         <fetcher.Form method="post" encType="multipart/form-data">
           <label className="flex flex-col">
-            <input type="text" name="title" placeholder="Title" />
+            <input type="text" name="title" placeholder={t("title")} />
             {fetcher.data?.errors && (
               <span className="w-max rounded-md border border-red-200 bg-red-50 p-4">
                 <span className="text-red-600">
@@ -98,7 +99,11 @@ const CreateNewBlankForm = () => {
             )}
           </label>
           <label className="flex flex-col pb-10">
-            <input type="text" name="description" placeholder="Description" />
+            <input
+              type="text"
+              name="description"
+              placeholder={t("description")}
+            />
             {fetcher.data?.errors && (
               <span className="w-max rounded-md border border-red-200 bg-red-50 p-4">
                 <span className="text-red-600">
@@ -109,9 +114,9 @@ const CreateNewBlankForm = () => {
           </label>
 
           <label className="flex flex-col pb-10">
-            <input type="file" name="image" multiple disabled />
+            <input type="file" name="image" disabled />
             <small id="fileHelpText" className="text-gray-400">
-              Accepted formats: JPG, PNG, up to 2MB.
+              {t("acceptedFormatsP")}
             </small>
           </label>
 
@@ -119,7 +124,7 @@ const CreateNewBlankForm = () => {
             <input
               type="text"
               name="questionText"
-              placeholder="Untitled Question"
+              placeholder={t("untitledQuestion")}
               className="text-green-500"
             />
             {fetcher.data?.errors && (
@@ -133,14 +138,13 @@ const CreateNewBlankForm = () => {
 
           <select
             name="questionType"
-            id=""
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
               setInputType(e.target.value);
             }}
             className="mb-10"
           >
-            <option value="multipleChoice">Multiple choice</option>
-            <option value="checkboxes">Checkboxes</option>
+            <option value="multipleChoice">{t("multipleChoice")}</option>
+            <option value="checkboxes">{t("checkboxes")}</option>
           </select>
           <div className="flex flex-col gap-10 pb-20">
             {inputType === "multipleChoice" && (
@@ -155,7 +159,7 @@ const CreateNewBlankForm = () => {
                   <input
                     type="text"
                     name="multipleChoice[0].text"
-                    placeholder="Option 1"
+                    placeholder={`${t("option")} 1`}
                     className="mb-0 max-w-[300px]"
                   />
                 </label>
@@ -170,7 +174,7 @@ const CreateNewBlankForm = () => {
                   <input
                     type="text"
                     name="multipleChoice[1].text"
-                    placeholder="Option 2"
+                    placeholder={`${t("option")} 2`}
                     className="mb-0 max-w-[300px]"
                   />
                 </label>
@@ -190,7 +194,7 @@ const CreateNewBlankForm = () => {
                   <input
                     type="text"
                     name="checkboxes[0].text"
-                    placeholder="Option 1"
+                    placeholder={`${t("option")} 1`}
                     className="mb-0 max-w-[300px]"
                   />
                 </label>
@@ -207,7 +211,7 @@ const CreateNewBlankForm = () => {
                   <input
                     type="text"
                     name="checkboxes[1].text"
-                    placeholder="Option 2"
+                    placeholder={`${t("option")} 2`}
                     className="mb-0 max-w-[300px]"
                   />
                 </label>
@@ -222,7 +226,7 @@ const CreateNewBlankForm = () => {
             )}
           </div>
 
-          <button type="submit">Create</button>
+          <button type="submit">{t("create")}</button>
         </fetcher.Form>
       </header>
     </section>

@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import type { Template } from "./root";
 import { SERVER_URL } from "../utils/utils";
+import { useTranslation } from "react-i18next";
 
 export const formItemLoader = async () => {
   try {
@@ -49,6 +50,7 @@ export const FormItemPage = () => {
   const params = useParams();
   console.log(params);
   const fetcher = useFetcher();
+  const { t } = useTranslation();
   console.log("formdata asnyc", formDataAsync);
   formDataAsync.map((data) => console.log("questions", data.questions));
   const currentForm = formDataAsync.find((form) => form.id === params.id);
@@ -141,7 +143,7 @@ export const FormItemPage = () => {
                 value="submit"
                 disabled
               >
-                Submit
+                {t("submit")}
               </button>
               <button
                 className="max-w-[140px] border-red-500 text-red-500"
@@ -149,7 +151,7 @@ export const FormItemPage = () => {
                 name="intent"
                 value="delete"
               >
-                Delete
+                {t("delete")}
               </button>
             </footer>
           </fetcher.Form>

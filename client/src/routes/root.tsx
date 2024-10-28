@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import {
   Form,
   json,
@@ -12,6 +12,8 @@ import {
 } from "react-router-dom";
 import { formatTime, HTTP_STATUS, SERVER_URL } from "../utils/utils";
 import { RefreshCw } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 export const rootLoader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -58,6 +60,34 @@ export const Root = () => {
       <div id="outler">
         <Outlet />
       </div>
+      <LanguageSwitcher />
+    </>
+  );
+};
+
+const LanguageSwitcher = () => {
+  const { i18n } = useTranslation();
+  const [language, setLanguage] = useState(
+    localStorage.getItem("language") || " en",
+  );
+
+  return (
+    <>
+      <footer className="ml-auto mr-auto flex w-full max-w-[1280px] gap-10 pb-[50px]">
+        <select
+          name="languageSwitcher"
+          value={language}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            const selectedLang = e.target.value;
+            setLanguage(selectedLang);
+            localStorage.setItem("language", selectedLang);
+            i18n.changeLanguage(selectedLang);
+          }}
+        >
+          <option value="en">English</option>
+          <option value="uz">Uzbek</option>
+        </select>
+      </footer>
     </>
   );
 };
@@ -115,6 +145,8 @@ export const NavBar = () => {
 };
 
 const Search = (props: { isLoading?: boolean }) => {
+  const { t, i18n } = useTranslation();
+  console.log(t, i18n);
   return (
     <>
       <section className="ml-auto mr-auto flex w-full max-w-[1280px] flex-col gap-16 px-16 pt-20 lg:px-0">
@@ -124,7 +156,7 @@ const Search = (props: { isLoading?: boolean }) => {
               type="search"
               name="search"
               className="ml-10px border-0 border-b-2"
-              placeholder="Search"
+              placeholder={t("search")}
             />
             {props.isLoading && (
               <span className="-ml-[44px]">
@@ -133,7 +165,7 @@ const Search = (props: { isLoading?: boolean }) => {
             )}
           </label>
 
-          <button type="submit">Search</button>
+          <button type="submit">{t("search")}</button>
         </Form>
       </section>
     </>
@@ -141,10 +173,11 @@ const Search = (props: { isLoading?: boolean }) => {
 };
 
 const TemplateGallery = () => {
+  const { t } = useTranslation();
   return (
     <>
       <section className="ml-auto mr-auto max-w-[1280px] px-16 pb-20 pt-[20px] lg:px-0">
-        <header className="pb-10">Start a new form</header>
+        <header className="pb-10">{t("startANewForm")}</header>
         <ul className="flex gap-20 overflow-x-auto whitespace-nowrap">
           <li>
             <TemplateBlankForm />
@@ -177,13 +210,14 @@ export type Template = {
 };
 
 const RecentForms = () => {
+  const { t } = useTranslation();
   const formsDataAsync = useLoaderData() as Template[];
   console.log(formsDataAsync);
   return (
     <>
       <section className="mb-[50px] ml-auto mr-auto max-w-[1280px] px-16 lg:px-0">
         <div className="pb-20">
-          <header className="pb-10">Recent forms</header>
+          <header className="pb-10">{t("recentForms")}</header>
           <ul className="flex gap-20 overflow-x-auto whitespace-nowrap">
             {formsDataAsync.map((form) => (
               <li
@@ -194,7 +228,9 @@ const RecentForms = () => {
                   <header className="h-[160px] bg-orange-200"></header>
                   <footer className="flex flex-col">
                     <span>{`${form.title} →`}</span>
-                    <span className="text-xs text-gray-400">created at:</span>
+                    <span className="text-xs text-gray-400">
+                      {t("createdAt")}:
+                    </span>
                     <span className="text-xs text-gray-400">
                       {formatTime(form.createdAt)}
                     </span>
@@ -213,7 +249,7 @@ const TemplateBlankForm = () => {
   return (
     <>
       <Link to="/create">
-        <TemplateItemStatic text="Blank form →">
+        <TemplateItemStatic text={`${t("blankForm")} →`}>
           <div className="h-[180px] w-[160px] bg-gray-300"></div>
         </TemplateItemStatic>
       </Link>

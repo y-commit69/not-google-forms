@@ -1,3 +1,5 @@
+import i18next from "i18next";
+
 export const API_URL =
   import.meta.env.VITE_API_URL || "https://not-google-forms.onrender.com/api";
 
@@ -16,9 +18,10 @@ export const HTTP_STATUS = {
 
 export function formatTime(dateString: string) {
   const date = new Date(dateString);
+  const currentLang = i18next.language;
   return date.toLocaleDateString([], {
     hour: "2-digit",
     minute: "2-digit",
-    hour12: true,
+    hour12: currentLang === "en",
   });
 }
