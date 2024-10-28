@@ -6,7 +6,7 @@ import {
   useFetcher,
 } from "react-router-dom";
 import { SERVER_URL } from "../utils/utils";
-import { t } from "i18next";
+import i18next, { t } from "i18next";
 
 type actionErrors = {
   title?: string;
@@ -33,16 +33,16 @@ export async function createNewFormAction({ request }: ActionFunctionArgs) {
   }
   const errors: actionErrors = {};
   if (!title) {
-    errors.title = "Title cannot be empty";
+    errors.title = i18next.t("titleCannotBeEmpty");
   }
   if (!description) {
-    errors.description = "Description cannot be empty";
+    errors.description = i18next.t("descriptionCannotBeEmpty");
   }
   if (!questionText) {
-    errors.questionText = "Question cannot be empty";
+    errors.questionText = i18next.t("questionCannotBeEmpty");
   }
   if (!option1 && !option2) {
-    errors.options = "Options cannot be empty";
+    errors.options = i18next.t("optionsCannotBeEmpty");
   }
   // return data if we have errors
   if (Object.keys(errors).length > 0) {
