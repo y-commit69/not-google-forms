@@ -116,6 +116,7 @@ app.delete("/forms/:id", async (req, res) => {
 
 app.get("/search", async (req, res) => {
   try {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     const searchQuery = (await req.query.search) as string;
     console.log(searchQuery);
 
