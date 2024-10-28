@@ -73,7 +73,7 @@ const LanguageSwitcher = () => {
 
   return (
     <>
-      <footer className="ml-auto mr-auto flex w-full max-w-[1280px] gap-10 pb-[50px]">
+      <footer className="ml-auto mr-auto flex w-full max-w-[1280px] gap-10 px-16 pb-[50px] lg:px-0">
         <select
           name="languageSwitcher"
           value={language}
