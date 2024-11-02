@@ -3,6 +3,7 @@ import { Multer } from "@ts-stack/multer";
 import cors from "cors";
 import express from "express";
 import { HTTP_STATUS } from "./utils/utils.js";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 const prisma = new PrismaClient();
 const multer = new Multer({
@@ -29,13 +30,13 @@ app.use(
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    optionsSuccessStatus: 204,
   })
 );
 
 app.post("/create", async (req, res) => {
   console.log(req.body);
   try {
+    // throw new Error("error");
     const parsedForm = await parseImage(req, req.headers);
     if (!parsedForm) return;
     console.log("received form data", parsedForm.textFields);
@@ -82,7 +83,7 @@ app.post("/create", async (req, res) => {
       templateId: newTemplate.id,
     });
   } catch (error) {
-    console.error(error);
+    console.error(error, { cause: error });
     res
       .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
       .json({ error: "failed to create form" });
@@ -90,7 +91,7 @@ app.post("/create", async (req, res) => {
 });
 
 app.delete("/forms/:id", async (req, res) => {
-  const formId = await req.params.id;
+  const formId = req.params.id;
   console.log("server params", formId);
   try {
     await prisma.$transaction(async (tx) => {
@@ -107,7 +108,7 @@ app.delete("/forms/:id", async (req, res) => {
     });
     res.status(HTTP_STATUS.OK).json({ message: " form deleted successfully" });
   } catch (error) {
-    console.error(error);
+    console.error(error, { cause: error });
     res
       .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
       .json({ message: "failed to delete form" });
@@ -117,7 +118,7 @@ app.delete("/forms/:id", async (req, res) => {
 app.get("/search", async (req, res) => {
   try {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    const searchQuery = (await req.query.search) as string;
+    const searchQuery = req.query.search as string;
     console.log(searchQuery);
 
     if (!searchQuery) {
@@ -143,7 +144,8 @@ app.get("/search", async (req, res) => {
 
     res.json(searchResults);
   } catch (error) {
-    console.error("search error:", error);
+    console.error("search error:", error, { cause: error });
+    console.log("Sending error response to client");
     res
       .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
       .json({ error: "failed to perform search" });
@@ -151,18 +153,29 @@ app.get("/search", async (req, res) => {
 });
 
 app.get("/templates", async (req, res) => {
+  console.log("⭐ Entering /templates route handler");
   try {
     const templates = await prisma.template.findMany({
       include: {
         questions: true,
       },
     });
+    // throw new Error("p err");
+
     res.status(HTTP_STATUS.OK).json(templates);
   } catch (error) {
-    console.error(error);
+    console.error(error, { cause: error });
+    let errorMessage;
+    if (error instanceof PrismaClientKnownRequestError) {
+      return (errorMessage = "db query failed");
+    } else {
+      errorMessage = "failed to fetch templates";
+    }
+
     res
       .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-      .json({ error: "failed to fetch templates" });
+
+      .json({ error: errorMessage });
   }
 });
 
