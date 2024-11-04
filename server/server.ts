@@ -4,22 +4,10 @@ import cors from "cors";
 import express from "express";
 import { HTTP_STATUS } from "./utils/utils.js";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-
-const prisma = new PrismaClient();
-const multer = new Multer({
-  limits: {
-    files: 1,
-    fileSize: 2 * 1024 * 1024,
-  },
-});
-
-const parseImage = multer.single("image");
-
 const app = express();
-
+const prisma = new PrismaClient();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(
   cors({
     origin: [
@@ -33,23 +21,21 @@ app.use(
   })
 );
 
+const multer = new Multer({
+  limits: {
+    files: 1,
+    fileSize: 2 * 1024 * 1024, //2MB
+  },
+});
+const parseImage = multer.single("image");
 app.post("/create", async (req, res) => {
-  console.log(req.body);
   try {
-    // throw new Error("error");
     const parsedForm = await parseImage(req, req.headers);
     if (!parsedForm) return;
-    console.log("received form data", parsedForm.textFields);
     const formData = parsedForm.textFields;
-    console.log(formData);
-    const title = formData.title;
-    const description = formData.description;
-    const questionText = formData.questionText;
-    const questionType = formData.questionType;
-
+    const { title, description, questionText, questionType } = formData;
     let option1;
     let option2;
-
     if (questionType === "multipleChoice") {
       option1 = formData["multipleChoice[0].text"];
       option2 = formData["multipleChoice[1].text"];
@@ -92,7 +78,6 @@ app.post("/create", async (req, res) => {
 
 app.delete("/forms/:id", async (req, res) => {
   const formId = req.params.id;
-  console.log("server params", formId);
   try {
     await prisma.$transaction(async (tx) => {
       await tx.question.deleteMany({
@@ -119,11 +104,10 @@ app.get("/search", async (req, res) => {
   try {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     const searchQuery = req.query.search as string;
-    console.log(searchQuery);
-
     if (!searchQuery) {
       return res.json([]);
     }
+
     const searchResults = await prisma.template.findMany({
       where: {
         OR: [
@@ -144,8 +128,8 @@ app.get("/search", async (req, res) => {
 
     res.json(searchResults);
   } catch (error) {
-    console.error("search error:", error, { cause: error });
-    console.log("Sending error response to client");
+    console.log(`🔴: ${error}`, { cause: error });
+
     res
       .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
       .json({ error: "failed to perform search" });
@@ -153,14 +137,12 @@ app.get("/search", async (req, res) => {
 });
 
 app.get("/templates", async (req, res) => {
-  console.log("⭐ Entering /templates route handler");
   try {
     const templates = await prisma.template.findMany({
       include: {
         questions: true,
       },
     });
-    // throw new Error("p err");
 
     res.status(HTTP_STATUS.OK).json(templates);
   } catch (error) {
@@ -171,7 +153,6 @@ app.get("/templates", async (req, res) => {
     } else {
       errorMessage = "failed to fetch templates";
     }
-
     res
       .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
 
@@ -179,7 +160,7 @@ app.get("/templates", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
 });
