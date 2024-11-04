@@ -128,7 +128,7 @@ export const IndexPage = () => {
   );
 };
 
-export const NavBar = () => {
+const NavBar = () => {
   return (
     <>
       <nav className="p3-pink-color flex h-[280px] px-16 pt-20 text-white">
